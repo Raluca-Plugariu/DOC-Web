@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Online Employee Community</title>
+    </f:facet>
+
+
+    <f:facet name="last">
+        <h:outputStylesheet name="/resources/css/fonts-awesome.css" />
+    </f:facet>
+
+    <!-- Bootstrap core CSS -->
+
+    <link rel="stylesheet" type="text/css"
+          href="http://localhost:8080/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="http://localhost:8080/resources/dist/css/AdminLTE.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="http://localhost:8080/resources/dist/css/skins/skin-blue.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+    <!-- REQUIRED JS SCRIPTS -->
+    <script type="text/javascript" src="http://localhost:8080/resources/bootstrap/js/bootstrap.min.js"></script> <!-- Correio -->
+    <script type="text/javascript" src="http://localhost:8080/resources/dist/js/app.min.js"></script> <!-- Correio -->
+</h:head>
+<h:body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="wrapper">
+
+        <!-- Main Header -->
+        <header class="main-header">
+
+            <!-- Logo -->
+            <a href="homeP.xhtml" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>DOC</b>WEB</span>
+            </a>
+
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="dropdown messages-menu">
+                            <!-- Menu toggle button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="label label-success">0</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 0 messages</li>
+                                <li>
+                                    <!-- inner menu: contains the messages -->
+                                    <ul class="menu">
+                                    </ul><!-- /.menu -->
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li><!-- /.messages-menu -->
+
+                        <!-- Notifications Menu -->
+                        <li class="dropdown notifications-menu">
+                            <!-- Menu toggle button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">#{userDoctorController.all.size()}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <!-- Inner Menu: contains the notifications -->
+                                    <ul class="menu">
+                                        <a href="#">
+                                            <h:form>
+                                                <p:dataScroller value="#{userDoctorController.all}" var="car" chunkSize="5" styleClass="" >
+                                                    <f:facet name="loader">
+                                                        <b:commandButton type="button" value="More" styleClass="small-box-footer"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{car.firstName}" styleClass="#{car.firstName}" style=""/>
+                                                </p:dataScroller>
+                                            </h:form>
+                                        </a>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <!-- Tasks Menu -->
+                        <li class="dropdown tasks-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-flag-o"></i>
+                                <span class="label label-danger">#{userDoctorController.all.size()}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 5 tasks</li>
+                                <li>
+                                    <!-- Inner menu: contains the tasks -->
+                                    <!-- Inner Menu: contains the notifications -->
+                                    <ul class="menu">
+                                        <a href="#">
+                                            <h:form>
+                                                <p:dataScroller value="#{userDoctorController.all}" var="car" chunkSize="5" styleClass="" >
+                                                    <f:facet name="loader">
+                                                        <b:commandButton type="button" value="More" styleClass="small-box-footer"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{car.firstName}" styleClass="#{car.firstName}" style=""/>
+                                                </p:dataScroller>
+                                            </h:form>
+                                        </a>
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all tasks</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- User Account Menu -->
+
+                        <li class="dropdown user user-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- The user image in the navbar-->
+                                <!--<h:graphicImage library="resources" name="" class="user-image" alt="User Image"/>-->
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span class="hidden-xs">#{userController.user.firstName.concat(" ").concat(userController.user.lastName)}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- The user image in the menu -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-right">
+                                        <h:form>
+                                            <b:navCommandLink value="Logout" action="#{userController.logout}" styleClass="btn btn-default btn-flat"></b:navCommandLink>
+                                        </h:form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+                    <li class="header">HEADER</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <ui:fragment>
+                        <li><a href="homeP.xhtml"><i class="fa fa-link"></i> <span>Profile</span></a></li>
+                    </ui:fragment>
+                    <ui:fragment>
+                        <li><a href="homeP.xhtml"><i class="fa fa-link"></i> <span>Appointments</span></a></li>
+                    </ui:fragment>
+                </ul><!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+
+            <!-- Main content -->
+            <section class="content">
+
+                <ui:insert name="content" />
+
+            </section><!-- /.content -->
+        </div><!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright 2017 <a href="#">OEC</a>.</strong> All rights reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane active" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:;">
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul><!-- /.control-sidebar-menu -->
+
+
+                </div><!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post" action="">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" />
+                            </label>
+                            <p>
+                                Some information about this general settings option
+                            </p>
+                        </div><!-- /.form-group -->
+                    </form>
+                </div><!-- /.tab-pane -->
+            </div>
+        </aside><!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #b46868;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        ::-webkit-scrollbar-button {
+            background-color: #7c2929;
+        }
+        ::-webkit-scrollbar-corner {
+            background-color: black;
+        }
+    </style>
+</h:body>
+
+
+</html>

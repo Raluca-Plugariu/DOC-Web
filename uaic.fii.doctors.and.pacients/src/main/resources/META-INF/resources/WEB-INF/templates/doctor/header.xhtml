@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:b="http://bootsfaces.net/ui">
+	<b:form rendered="#{userController.userLoggedIn}">
+		<b:navBar brandHref="#" styleClass="navbar navbar-inverse navbar-fixed-top" >
+			<a class="navbar-brand" href="#"><i class="glyphicon glyphicon-book"></i> Online Employee Community</a>
+
+			<b:navbarLinks pull="right">
+				<b:navLink value="Home" href="#" rendered="#{userController.login}"></b:navLink>
+				<b:navCommandLink value="Logout" action="#{userController.login}"></b:navCommandLink>
+			</b:navbarLinks>
+		</b:navBar>
+	</b:form>
+</ui:composition>
+

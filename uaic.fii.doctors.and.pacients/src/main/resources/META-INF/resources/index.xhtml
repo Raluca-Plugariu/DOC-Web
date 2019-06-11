@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source
+    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    contributors by the @authors tag. See the copyright.txt in the
+    distribution for a full listing of individual contributors.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+        <div class="roles">
+            <div class="col-sm-4">
+                <div>
+                    <a href="/login">
+                        <img src="resources/images/doctorAv.png" class="img-circle img-thumbnail"/>
+                        <h2>Doctor</h2>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div>
+                    <a href="/login">
+                        <img src="resources/images/pacientAv.png" class="img-circle img-thumbnail"/>
+                        <h2>Pacient</h2>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <style type="text/css">
+            .roles{
+                padding: 20px 0;
+                text-align: center;
+            }
+            .roles > div > div{
+                padding: 10px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                transition: 0.2s;
+                background-color: hsla(0, 100%, 90%, 0.3);
+
+            }
+            .roles > div:hover > div{
+                margin-top: -10px;
+                border: 1px solid rgb(200, 200, 200);
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
+                background: rgba(200, 200, 200, 0.1);
+                transition: 0.5s;
+            }
+        </style>
+    </ui:define>
+</ui:composition>

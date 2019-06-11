@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/WEB-INF/templates/doctor/main.xhtml">
+
+    <ui:define name="content">
+        <!-- Content Wrapper. Contains page content -->
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <f:event type="preRenderView" listener="#{userDoctorController.setCurrentUserDoctor()}" />
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-7 connectedSortable">
+
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <i class="ion ion-clipboard"></i>
+
+                            <h3 class="box-title">Pacients</h3>
+
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <ul class="todo-list">
+                                <ui:repeat var="_proj" value="#{userDoctorController.currentUserDoctor.pacientsList}">
+                                    <li>
+                                        <div class="progress-group">
+                                            <ul style="list-style-type:none;">
+
+                                                <li>
+                                                    <span class="progress-text">Name: #{_proj.firstName} #{_proj.lastName}</span>
+                                                    <a href="#" class="progress-number">Profile <i class="fa fa-arrow-circle-right"></i></a>
+                                                </li>
+                                                <li>
+                                                    <span class="progress-text">#{_proj.gender}</span>
+                                                </li>
+
+                                                <li>
+                                                    <span class="progress-text">#{_proj.pacientDetails.cnp}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ui:repeat>
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+
+
+                </section>
+                <!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-5 connectedSortable">
+
+
+
+
+                </section>
+                <!-- right col -->
+            </div>
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
+    </ui:define>
+    <h:outputScript target="head">
+        $("#log").change(function() {
+        scrollToBottom();
+        });
+        function scrollToBottom() {
+        $('#logt').scrollTop($('#log')[0].scrollHeight);
+        }
+
+    </h:outputScript>
+
+</ui:composition>

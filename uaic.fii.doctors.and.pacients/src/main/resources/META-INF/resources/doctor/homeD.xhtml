@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="/WEB-INF/templates/doctor/main.xhtml">
+
+    <ui:define name="content">
+        <!-- Content Wrapper. Contains page content -->
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <f:event type="preRenderView" listener="#{userDoctorController.setCurrentUserDoctor()}" />
+            <h1>
+                Welcome #{userController.user.firstName.concat(" ").concat(userController.user.lastName)} !
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>0</h3>
+
+                            <p>Pacients</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>#{userDoctorController.userDoctorDTO.specialityList.size()}</h3>
+
+                            <p>Specializations</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>#{userDoctorController.userDoctorDTO.reviewList.size()}</h3>
+
+                            <p>Reviews</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>#{userDoctorController.userDoctorDTO.starRate}</h3>
+
+                            <p>Score</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-7 connectedSortable">
+
+                        <div class="box-header">
+                            <!--<i class="fa fa-comments-o"></i>-->
+
+                            <h3 class="box-title">Appointments for today</h3>
+
+                        </div>
+
+
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <i class="ion ion-clipboard"></i>
+
+                            <h3 class="box-title">Pacients</h3>
+
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <ul class="todo-list">
+                                <ui:repeat var="_proj" value="#{userDoctorController.pacientsForToday}">
+                                   <li>
+                                        <div class="progress-group">
+                                            <ul style="list-style-type:none;">
+
+                                                <li>
+                                                     <span class="progress-text">Name: #{_proj.pacient.firstName} #{_proj.pacient.lastName}</span>
+                                                     <a href="#" class="progress-number">Profile <i class="fa fa-arrow-circle-right"></i></a>
+                                                </li>
+                                                <li>
+                                                     <span class="progress-text">Title: #{_proj.title}</span>
+                                                </li>
+
+                                                <li>
+                                                    <span class="progress-text">Start time: #{_proj.date.startTime}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                   </li>
+                                </ui:repeat>
+                            </ul>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                    <!--<div class="box box-info">-->
+                        <!--<div class="box-header">-->
+                            <!--<i class="fa fa-tasks"></i>-->
+
+                            <!--<h3 class="box-title">Tasks</h3>-->
+                            <!--&lt;!&ndash; tools box &ndash;&gt;-->
+                            <!--<div class="pull-right box-tools">-->
+                                <!--<button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">-->
+                                    <!--<i class="fa fa-times"></i></button>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; /. tools &ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="box-body">-->
+                            <!--<ul class="todo-list">-->
+                                <!--<ui:repeat var="_task" value="#{userDoctorController.all}">-->
+                                    <!--<li>-->
+                                        <!--<div class="progress-group">-->
+                                            <!--<span class="progress-text"><a href="#" data-toggle="tooltip" title="#{_task.firstName}">#{_task.firstName}</a></span>-->
+                                            <!--<span class="progress-number">#{_task.firstName}%</span>-->
+
+                                            <!--<div class="progress sm">-->
+                                                <!--<div class="progress-bar progress-bar-green" style="width: #{_task.firstName}%"></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</li>-->
+                                <!--</ui:repeat>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                </section>
+                <!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-5 connectedSortable">
+
+                    <!-- Map box -->
+                    <!--<div class="box box-solid bg-light-blue-gradient">-->
+                        <!--<div class="box-header with-border">-->
+                            <!--<h3 class="box-title">Department Members</h3>-->
+
+                            <!--<div class="box-tools pull-right">-->
+                                <!--<span class="label label-danger">10 Members</span>-->
+                                <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
+                                <!--</button>-->
+                                <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="box-body no-padding">-->
+                            <!--<ul class="users-list clearfix">-->
+                                <!--<ui:repeat var="o" value="#{userDoctorController.all}" varStatus="status">-->
+                                    <!--<li>-->
+                                        <!--<h:graphicImage library="img" name="#{o.avatar.path}" class="img-circle" alt="User Image"/>-->
+                                        <!--<a class="users-list-name" href="#">#{o.firstname} #{o.lastname}</a>-->
+                                        <!--<span class="users-list-date">#{o.title.title}</span>-->
+                                    <!--</li>-->
+
+                                <!--</ui:repeat>-->
+                            <!--</ul>-->
+                            <!--&lt;!&ndash; /.users-list &ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!-- /.box -->
+
+
+                     Calendar
+                    <div class="box box-solid bg-green-gradient">
+                        <div class="box-header">
+                            <i class="fa fa-calendar"></i>
+
+                            <h3 class="box-title">Calendar</h3>
+                            <!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <!-- button with a dropdown -->
+                                <button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <!-- /. tools -->
+                        </div>
+                        <div class="box-body no-padding">
+                            <!--The calendar -->
+                            <div id="calendar" style="width: 100%"></div>
+                        </div>
+                        <!-- /.box-body -->
+                        <h:form>
+                            <p:growl id="messages" showDetail="true" />
+
+                            <h:panelGrid columnClasses="value">
+                                <h3 style="margin-top: 0">-</h3>
+                                <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+
+                                    <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                    <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                                    <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+                                    <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+
+                                </p:schedule>
+
+                            </h:panelGrid>
+
+                            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                                <h:panelGrid id="eventDetails" columns="2">
+                                    <p:outputLabel for="title" value="Titles:" />
+                                    <p:inputText id="title" value="Consultation" required="true" />
+
+                                    <p:outputLabel for="from" value="From:" />
+                                    <p:calendar id="from" value="#{scheduleView.evtime.startTime}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+
+                                    <p:outputLabel for="to" value="To:" />
+                                    <p:calendar id="to" value="#{scheduleView.evtime.endTime}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+
+                                    <p:outputLabel for="multiple" value="Participants:" />
+                                    <p:selectCheckboxMenu id="multiple" value="#{scheduleView.selectedPacients}" label="Employees" multiple="true"
+                                                          filter="true" filterMatchMode="startsWith" panelStyle="width:250px" required="false">
+                                         </p:selectCheckboxMenu>
+
+                                    <p:commandButton type="reset" value="Reset" />
+                                    <p:commandButton id="addButton" value="Save" actionListener="#{scheduleView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                                </h:panelGrid>
+                            </p:dialog>
+                        </h:form>
+                    </div>
+                    <!--&lt;!&ndash; /.box &ndash;&gt;-->
+                    <!--&lt;!&ndash; DIRECT CHAT &ndash;&gt;-->
+                    <!--<div class="box box-warning direct-chat direct-chat-warning" id="chatcontainer">-->
+                        <!--<div class="box-header with-border">-->
+                            <!--<h3 class="box-title">Direct Chat</h3>-->
+                            <!--<h:outputText id="target" value="#{chatController.target}" />-->
+                            <!--<div class="box-tools pull-right">-->
+
+                                <!--<div class="box-tools pull-right" data-toggle="tooltip" title="Status">-->
+                                    <!--<div class="btn-group" data-toggle="btn-toggle">-->
+                                        <!--<button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>-->
+                                        <!--</button>-->
+                                        <!--<button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>-->
+                                <!--</button>-->
+                                <!--<button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle" id="contacts">-->
+                                    <!--<i class="fa fa-comments"></i></button>-->
+                                <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /.box-header &ndash;&gt;-->
+                        <!--<div class="box-body">-->
+                            <!--&lt;!&ndash; Conversations are loaded here &ndash;&gt;-->
+
+
+                            <!--&lt;!&ndash;/.direct-chat-messages&ndash;&gt;-->
+                            <!--<h:form id="chat">-->
+
+                                <!--<p:tabView var="conv" value="#{chatController.conversations}">-->
+
+                                    <!--<p:tab title="#{conv}">-->
+                                        <!--<textarea readonly="true" rows="10" cols="80" id="#{conv}"></textarea>-->
+                                    <!--</p:tab>-->
+                                    <!--<p:ajax event="tabChange" listener="#{chatController.onTabChange}"/>-->
+
+
+                                <!--</p:tabView>-->
+
+                                <!--&lt;!&ndash; Contacts are loaded here &ndash;&gt;-->
+                                <!--<div class="direct-chat-contacts">-->
+                                    <!--<ul class="contacts-list">-->
+                                        <!--<ui:repeat var="c" value="#{chatController.emps.entrySet().toArray()}" varStatus="status">-->
+                                            <!--<li>-->
+                                                <!--<p:commandLink action="#{chatController.target(c.key)}" process=":chat" update=":chat" ajax="true">-->
+                                                    <!--<h:graphicImage library="img" name="#{c.key.avatar.path}" class="contacts-list-img" alt="User Image"/>-->
+                                                    <!--<div class="contacts-list-info">-->
+                                                        <!--#{c.key} #{c.value}-->
+                                                    <!--</div>-->
+                                                    <!--&lt;!&ndash; /.contacts-list-info &ndash;&gt;-->
+                                                <!--</p:commandLink>-->
+                                            <!--</li>-->
+                                        <!--</ui:repeat>-->
+                                    <!--</ul>-->
+                                    <!--&lt;!&ndash; /.contatcts-list &ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</h:form>-->
+                            <!--&lt;!&ndash; /.direct-chat-pane &ndash;&gt;-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /.box-body &ndash;&gt;-->
+                        <!--<div class="box-footer">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type="text" name="message" placeholder="Type Message ..." class="form-control" id="msg"/>-->
+                                <!--<span class="input-group-btn">-->
+                            <!--<p:commandLink value="Send" action="#{chatController.send()}"  styleClass="btn btn-warning btn-flat"></p:commandLink>-->
+                          <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; /.box-footer&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;/.direct-chat &ndash;&gt;-->
+
+
+                </section>
+                <!-- right col -->
+            </div>
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
+    </ui:define>
+    <h:outputScript target="head">
+        $("#log").change(function() {
+        scrollToBottom();
+        });
+        function scrollToBottom() {
+        $('#logt').scrollTop($('#log')[0].scrollHeight);
+        }
+
+    </h:outputScript>
+
+</ui:composition>
