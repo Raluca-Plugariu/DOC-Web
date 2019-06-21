@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import org.primefaces.event.ScheduleEntryMoveEvent;
 import org.primefaces.event.ScheduleEntryResizeEvent;
@@ -30,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.annotation.SessionScope;
 
 
-@SessionScope
+@ViewScoped
 @Named("scheduleView")
 public class ScheduleController {
 
@@ -61,8 +62,8 @@ public class ScheduleController {
         if(userDoctorDTO != null) {
             for (AppointmentDTO appointmentDTO : userDoctorDTO.getAppointments()) {
                 eventModel.addEvent(new DefaultScheduleEvent(appointmentDTO.getTitle(),
-                        convertLocalDateToDate(appointmentDTO.getDate().getStartTime()),
-                        convertLocalDateToDate(appointmentDTO.getDate().getEndTime())));
+                       appointmentDTO.getDate().getStartTime(),
+                       appointmentDTO.getDate().getEndTime()));
 
             }
         }
@@ -143,8 +144,8 @@ public class ScheduleController {
                     appointmentDTO.setPacient(pacientDTOS.get(0));
                 }
                 BookableTimeDTO bookableTimeDTO = new BookableTimeDTO();
-                bookableTimeDTO.setStartTime(convertToLocalDateTime(event.getStartDate()));
-                bookableTimeDTO.setEndTime(convertToLocalDateTime(event.getEndDate()));
+                bookableTimeDTO.setStartTime(event.getStartDate());
+                bookableTimeDTO.setEndTime(event.getEndDate());
                 appointmentDTO.setDate(bookableTimeDTO);
                 appointmentService.createAppointment(appointmentDTO, userDoctorController.getCurrentUserDoctor().getId());
             }
@@ -172,8 +173,8 @@ public class ScheduleController {
     public void onEventMove(ScheduleEntryMoveEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
         AppointmentDTO appointmentDTO = appointmentService.getEventByDoctorID(event.getScheduleEvent().getTitle(),userDoctorController.getCurrentUserDoctor().getId());
-        appointmentDTO.getDate().setStartTime(convertToLocalDateTime(event.getScheduleEvent().getStartDate()));
-        appointmentDTO.getDate().setEndTime(convertToLocalDateTime(event.getScheduleEvent().getEndDate()));
+        appointmentDTO.getDate().setStartTime(event.getScheduleEvent().getStartDate());
+        appointmentDTO.getDate().setEndTime(event.getScheduleEvent().getEndDate());
         appointmentService.update(appointmentDTO);
         addMessage(message);
     }
@@ -181,8 +182,8 @@ public class ScheduleController {
     public void onEventResize(ScheduleEntryResizeEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
         AppointmentDTO appointmentDTO = appointmentService.getEventByDoctorID(event.getScheduleEvent().getTitle(),userDoctorController.getCurrentUserDoctor().getId());
-        appointmentDTO.getDate().setStartTime(convertToLocalDateTime(event.getScheduleEvent().getStartDate()));
-        appointmentDTO.getDate().setEndTime(convertToLocalDateTime(event.getScheduleEvent().getEndDate()));
+        appointmentDTO.getDate().setStartTime(event.getScheduleEvent().getStartDate());
+        appointmentDTO.getDate().setEndTime(event.getScheduleEvent().getEndDate());
         appointmentService.update(appointmentDTO);
         addMessage(message);
     }

@@ -39,14 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/javax.faces.resource/**")
                 .permitAll().anyRequest().authenticated();
 
-        //permit index.xhtml
-//        http.authorizeRequests()
-//                .antMatchers("/META-INF/resources/index.xhtml")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic();
 
         // logout
         http.logout().logoutSuccessUrl("/login.xhtml");

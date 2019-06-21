@@ -29,6 +29,7 @@ public class Notification extends AbstractEntity  implements Serializable{
 
     private Date createDate;
 
+    @Enumerated(EnumType.STRING)
     private NotificationType type;
 
     private Boolean isSeen;

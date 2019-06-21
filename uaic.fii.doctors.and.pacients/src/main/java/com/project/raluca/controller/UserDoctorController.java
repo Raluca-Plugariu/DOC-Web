@@ -3,10 +3,14 @@ package com.project.raluca.controller;
 import com.project.raluca.dto.AddressDTO;
 import com.project.raluca.dto.AppointmentDTO;
 import com.project.raluca.dto.GeoLocation;
+import com.project.raluca.dto.SearchFilter;
 import com.project.raluca.dto.UserDoctorDTO;
 import com.project.raluca.dto.UserPacientDTO;
+import com.project.raluca.model.enums.City;
+import com.project.raluca.model.enums.Range;
 import com.project.raluca.service.GeoIPv4;
 import com.project.raluca.service.UserDoctorService;
+import com.project.raluca.utils.GeneralUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,9 +66,8 @@ public class UserDoctorController {
 
 
 
-    public ResponseEntity<?> create(UserDoctorDTO doctorDTO) {
+    public void create(UserDoctorDTO doctorDTO) {
         userDoctorService.create(doctorDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 
@@ -105,7 +108,7 @@ public class UserDoctorController {
         AddressDTO addressDTO = userDoctorDTO.getInstitution().getLocations();
         if(addressDTO != null) {
             this.userDoctorDTO.setWorkAdress(Optional.ofNullable(addressDTO.getCountry()).orElse(" ") + " "
-                    + Optional.ofNullable(addressDTO.getCity()).orElse(" ") + " "
+                    + Optional.ofNullable(addressDTO.getCity()).orElse(City.Iasi) + " "
                     + Optional.ofNullable(addressDTO.getStreet()).orElse(" ") + " "
                     + Optional.ofNullable(addressDTO.getNumber()).orElse(" "));
         }
@@ -117,42 +120,18 @@ public class UserDoctorController {
     public List<AppointmentDTO> getPacientsForToday() throws IOException {
         List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
        return userDoctorDTO.getAppointments().stream()
-               .filter(appointmentDTO -> appointmentDTO.getDate().getStartTime().getDayOfWeek().equals(LocalDate.now().getDayOfWeek()))
+               .filter(appointmentDTO -> GeneralUtils.convertToLocalDateTime(appointmentDTO.getDate().getStartTime()).getDayOfWeek().equals(LocalDate.now().getDayOfWeek()))
                .collect(Collectors.toList());
 
 }
 
-public GeoLocation getGeoLocation() throws IOException {
-        String address = getPublicIpAddress();
-    GeoLocation location = GeoIPv4.getLocation(address);
-    log.info("get geoLocation");
-    return  location;
-
-
-}
-
-    private String getPublicIpAddress() {
-        String ip = "";
-        try {
-
-            URL whatismyip;
-
-            whatismyip = new URL("http://checkip.amazonaws.com");
-
-            BufferedReader in = null;
-
-            in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
-
-            ip = in.readLine();
-
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public List<String> getAllRanges(){
+        Range[] ranges =  Range.values();
+        List<String> specialitiesNames = new ArrayList<>();
+        for( int i = 0 ; i<ranges.length; i++){
+            specialitiesNames.add(ranges[i].name());
         }
-        return ip;
+        return specialitiesNames;
     }
 
 }

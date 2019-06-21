@@ -3,6 +3,8 @@ package com.project.raluca.service;
 import com.project.raluca.dao.UserDoctorDAO;
 import com.project.raluca.dto.AppointmentDTO;
 import com.project.raluca.dto.BookableTimeDTO;
+import com.project.raluca.dto.SearchFilter;
+import com.project.raluca.dto.UserDoctorDTO;
 import com.project.raluca.model.Appointment;
 import com.project.raluca.model.Notification;
 import com.project.raluca.model.Doctor;
@@ -12,7 +14,14 @@ import com.project.raluca.repository.UserDoctorRepository;
 import com.project.raluca.repository.UserPacientRepository;
 import com.project.raluca.utils.GeneralUtils;
 import com.project.raluca.utils.GenericMapper;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import com.project.raluca.dao.UserPacientDAO;
@@ -22,6 +31,9 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +49,7 @@ public class UserPacientService {
     private UserDoctorDAO userDoctorDAO;
     private GenericMapper dtoHelper = new GenericMapper(Pacient.class, UserPacientDTO.class);
     private static final Logger log = LoggerFactory.getLogger(UserDoctorService.class);
+
 
     @Autowired
     public UserPacientService(final UserPacientRepository userPacientRepository, final UserPacientDAO userPacientDAO,
@@ -73,6 +86,11 @@ public class UserPacientService {
                 .collect(Collectors.toList()), Pacient.class);
     }
 
+    public UserPacientDTO findPacientByUsername(String username) {
+        Pacient d = userPacientRepository.findByUserUsername(username);
+        return (UserPacientDTO) dtoHelper.convertToDTO(d, UserPacientDTO.class);
+
+    }
     @Transactional(
             readOnly = false,
             propagation = Propagation.REQUIRED,
@@ -119,6 +137,13 @@ public class UserPacientService {
         userPacientDAO.update(userPacient);
 
         return (UserPacientDTO) dtoHelper.convertToDTO(userPacient, UserPacientDTO.class);
+    }
+
+
+    public UserPacientDTO getCurrentUserPacient() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        return findPacientByUsername(authentication.getName());
     }
 
 }

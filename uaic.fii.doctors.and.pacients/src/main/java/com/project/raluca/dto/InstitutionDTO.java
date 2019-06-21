@@ -48,4 +48,6 @@ public class InstitutionDTO {
     public void setDoctorList(List<UserDoctorDTO> doctorList) {
         this.doctorList = doctorList;
     }
+
+
 }

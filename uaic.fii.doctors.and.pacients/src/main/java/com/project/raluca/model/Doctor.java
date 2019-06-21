@@ -1,11 +1,6 @@
 package com.project.raluca.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.project.raluca.model.enums.Gender;
 import com.project.raluca.model.enums.InsuranceHouse;
 import com.project.raluca.model.enums.Range;
@@ -17,11 +12,9 @@ import java.io.Serializable;
 import java.util.List;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.SelectBeforeUpdate;
 
 @Entity
 @Table(name = "Doctor")
-@JsonIgnoreProperties("doctorsList")
 public class Doctor extends AbstractEntity implements Serializable {
 
     @Id
@@ -39,21 +32,22 @@ public class Doctor extends AbstractEntity implements Serializable {
 
     private int age;
 
+    private String phone;
+
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String parafa;
 
     private Range range;
 
+    @Enumerated(EnumType.STRING)
     private InsuranceHouse insuranceHouse;
 
     private int starRate;
 
-    @ElementCollection(targetClass = Speciality.class,fetch = FetchType.EAGER)
-    @CollectionTable(name = "doctor_speciality", joinColumns = @JoinColumn(name = "id"))
-    @Enumerated(value = EnumType.STRING)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Speciality> specialityList;
+    @Enumerated(EnumType.STRING)
+    private Speciality speciality;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -109,6 +103,14 @@ public class Doctor extends AbstractEntity implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Users getUser() {
@@ -183,12 +185,12 @@ public class Doctor extends AbstractEntity implements Serializable {
         this.starRate = starRate;
     }
 
-    public List<Speciality> getSpecialityList() {
-        return specialityList;
+    public Speciality getSpeciality() {
+        return speciality;
     }
 
-    public void setSpecialityList(List<Speciality> specialityList) {
-        this.specialityList = specialityList;
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
     }
 
     public Institution getInstitution() {
@@ -243,7 +245,7 @@ public class Doctor extends AbstractEntity implements Serializable {
                 Objects.equals(getParafa(), doctor.getParafa()) &&
                 getRange() == doctor.getRange() &&
                 getInsuranceHouse() == doctor.getInsuranceHouse() &&
-                Objects.equals(getSpecialityList(), doctor.getSpecialityList()) &&
+                Objects.equals(getSpeciality(), doctor.getSpeciality()) &&
                 Objects.equals(getReviewList(), doctor.getReviewList()) &&
                 Objects.equals(getPacientsList(), doctor.getPacientsList()) &&
                 Objects.equals(getNotificationList(), doctor.getNotificationList());
@@ -252,6 +254,6 @@ public class Doctor extends AbstractEntity implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getUser(), getFirstName(), getLastName(), getAge(), getGender(), getParafa(), getRange(), getInsuranceHouse(), getStarRate(), getSpecialityList(), getReviewList(), getPacientsList(), getNotificationList());
+        return Objects.hash(getId(), getUser(), getFirstName(), getLastName(), getAge(), getGender(), getParafa(), getRange(), getInsuranceHouse(), getStarRate(), getSpeciality(), getReviewList(), getPacientsList(), getNotificationList());
     }
 }

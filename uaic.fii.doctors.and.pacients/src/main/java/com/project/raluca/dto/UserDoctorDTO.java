@@ -19,20 +19,21 @@ public class UserDoctorDTO {
     private int age;
     private Gender gender;
     private String parafa;
+    private String phone;
     private Range range;
     private InsuranceHouse insuranceHouse;
     private String workAdress;
     private double starRate;
-    private List<Speciality> specialityList = new ArrayList<>();
+    private Speciality speciality;
     private InstitutionDTO institution;
     private List<ReviewDTO> reviewList = new ArrayList<>();
     private List<UserPacientDTO> pacientsList= new ArrayList<>();
     private List<NotificationDTO> notificationList  = new ArrayList<>();
     private List<AppointmentDTO> appointments = new ArrayList<>();
-    private List<BookableTimeDTO> bookableTimeDTOList = new ArrayList<>();
+    private List<BookableTimeDTO> bookableTimes = new ArrayList<>();
 
     public UserDoctorDTO(int id, UserDTO user, String firstName, String lastName, int age, Gender gender, String parafa, Range range, InsuranceHouse insuranceHouse,
-                         String workAdress, int starRate, List<Speciality> specialityList, InstitutionDTO institution, List<ReviewDTO> reviewList,
+                         String workAdress, int starRate, InstitutionDTO institution, List<ReviewDTO> reviewList,
                          List<UserPacientDTO> pacientsList,
                          List<NotificationDTO> notificationList) {
         this.id = id;
@@ -46,7 +47,6 @@ public class UserDoctorDTO {
         this.insuranceHouse = insuranceHouse;
         this.workAdress = workAdress;
         this.starRate = starRate;
-        this.specialityList = specialityList;
         this.institution = institution;
         this.reviewList = reviewList;
         this.pacientsList = pacientsList;
@@ -54,6 +54,14 @@ public class UserDoctorDTO {
     }
 
     public UserDoctorDTO() {
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getId() {
@@ -136,20 +144,20 @@ public class UserDoctorDTO {
         this.workAdress = workAdress;
     }
 
-    public double getStarRate() {
-        return starRate;
+    public int getStarRate() {
+        return(int) starRate;
     }
 
     public void setStarRate(double starRate) {
         this.starRate = starRate;
     }
 
-    public List<Speciality> getSpecialityList() {
-        return specialityList;
+    public Speciality getSpeciality() {
+        return speciality;
     }
 
-    public void setSpecialityList(List<Speciality> specialityList) {
-        this.specialityList = specialityList;
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
     }
 
     public InstitutionDTO getInstitution() {
@@ -199,12 +207,12 @@ public class UserDoctorDTO {
         this.appointments = appointments;
     }
 
-    public List<BookableTimeDTO> getBookableTimeDTOList() {
-        return bookableTimeDTOList;
+    public List<BookableTimeDTO> getBookableTimes() {
+        return bookableTimes;
     }
 
-    public void setBookableTimeDTOList(List<BookableTimeDTO> bookableTimeDTOList) {
-        this.bookableTimeDTOList = bookableTimeDTOList;
+    public void setBookableTimes(List<BookableTimeDTO> bookableTimes) {
+        this.bookableTimes = bookableTimes;
     }
 
     @Override

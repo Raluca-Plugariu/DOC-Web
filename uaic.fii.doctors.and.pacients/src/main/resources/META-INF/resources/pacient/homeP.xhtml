@@ -12,6 +12,7 @@
         <!-- Content Wrapper. Contains page content -->
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <f:event type="preRenderView" listener="#{userPacientController.setCurrentUserPacient()}" />
             <h1>
                 Welcome #{userController.user.firstName.concat(" ").concat(userController.user.lastName)} !
             </h1>
@@ -74,18 +75,26 @@
                 <!-- ./col -->
             </div>
             <!-- Main row -->
-            <div class="row">
+            <div class="row" id="test">
                 <!-- Left col -->
                 <section class="col-lg-7 connectedSortable">
 
                         <div class="box-header">
                             <h:form>
-                            <p:growl id="msgs" showDetail="true" />
+                            <p:growl id="growl" showDetail="true" />
 
-                            <h:panelGrid columns="3" cellpadding="10" cellspacing="10">
-                                <p:autoComplete id="acSimple" value="" completeMethod="#{userDoctorController.pacientsForToday}" placeholder="Search doctor.." />
-                                <p:selectBooleanCheckbox value=" " itemLabel="Score Rate" style="padding-left: 20px"/>
-                                <p:selectBooleanCheckbox value=" " itemLabel="Localization" />
+                            <h:panelGrid columns="5" cellpadding="10" cellspacing="10">
+                                <p:autoComplete id="acSimple" value="#{searchController.searchFilter.name}" completeMethod="#{userPacientController.getAllDoctors()}" placeholder="Search doctor.." />
+                                <p:selectBooleanCheckbox value="#{searchController.searchFilter.scoreRate}" itemLabel="Score Rate" style="padding-left: 20px"/>
+                                <p:selectBooleanCheckbox value="#{searchController.searchFilter.localization}" itemLabel="Localization" />
+                                <b:selectOneMenu value="#{searchController.searchFilter.speciality}" select2="true">
+                                    <f:selectItem itemLabel="(Specialisation)" itemValue="" />
+                                    <f:selectItems value="#{userPacientController.allSpecialisation}" var="c" itemValue="#{c}" itemLabel="#{c}" />
+                                </b:selectOneMenu>
+                                <p:commandButton
+                                                 value="Search" ajax="true" update=":doctors" action="#{searchController.searchDoctors}"
+                                                 style="margin-left:20px">
+                                </p:commandButton>
                             </h:panelGrid>
                             </h:form>
 
@@ -100,22 +109,22 @@
 
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body">
-                            <ul class="todo-list">
-                                <ui:repeat var="_proj" value="#{userDoctorController.all}">
+                        <div class="box-body" >
+                            <h:form id="doctors">
+                                <ul class="todo-list">
+                                <ui:repeat var="_proj" value="#{searchController.doctorDTOS}">
                                    <li>
                                         <div class="progress-group">
                                             <ul style="list-style-type:none;">
-                                                <h:form>
+
                                                 <li>
                                                      <span class="progress-text">Name: #{_proj.firstName} #{_proj.lastName}</span>
-                                                    <h:link value="Send" outcome="profileDoctor">
+                                                    <h:link class="pull-right" value="Profile" outcome="profileDoctor" >
                                                         <f:param name="id" value="#{_proj.id}" />
                                                     </h:link>
-                                                    <i class="fa fa-arrow-circle-right"></i>
                                                 </li>
                                                 <li>
-                                                     <span class="progress-text">Adress: #{_proj.workAdress}</span>
+                                                     <span class="progress-text">Adress: #{_proj.institution.locations}</span>
                                                 </li>
 
                                                 <li>
@@ -125,12 +134,12 @@
                                                 <li>
                                                     <span class="progress-text">Star Rate: #{_proj.starRate}</span>
                                                 </li>
-                                                </h:form>
                                             </ul>
                                         </div>
                                    </li>
                                 </ui:repeat>
                             </ul>
+                        </h:form>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -143,7 +152,7 @@
 
                        <h1> Your location</h1>
                     <div class="box box-solid bg-green-gradient">
-                        <p:gmap center="44.426767, 26.102538" zoom="15" type="HYBRID" style="width:100%;height:400px" />
+                        <p:gmap center="#{searchController.geoLocation}"  model="" zoom="15" type="HYBRID" style="width:100%;height:400px" />
                     </div>
 
 

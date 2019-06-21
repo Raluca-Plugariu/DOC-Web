@@ -12,8 +12,8 @@ public class GeoLocation {
     private int areaCode;
     private int dmaCode;
     private int metroCode;
-    private float latitude;
-    private float longitude;
+    public float latitude;
+    public float longitude;
 
     public GeoLocation(String countryCode, String countryName, String postalCode, String city, String region,
                        int areaCode, int dmaCode, int metroCode, float latitude, float longitude) {
@@ -53,4 +53,19 @@ public class GeoLocation {
                 '}';
     }
 
+    public String getLatitude() {
+        return String.valueOf(this.latitude);
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return String.valueOf(longitude);
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
 }

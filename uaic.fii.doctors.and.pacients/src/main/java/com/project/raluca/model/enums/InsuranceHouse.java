@@ -1,6 +1,7 @@
 package com.project.raluca.model.enums;
 
 public enum InsuranceHouse {
+    NONE,
     HR,
     VN,
     B,

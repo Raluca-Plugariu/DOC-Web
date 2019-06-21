@@ -1,5 +1,6 @@
 package com.project.raluca.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,13 +18,13 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "BookableTime")
-public class BookableTime {
+public class BookableTime  extends AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private Date startTime;
+    private Date endTime;
 
     @ManyToOne
     @JoinColumn(name="doctor_id")
@@ -45,19 +46,19 @@ public class BookableTime {
         this.id = id;
     }
 
-    public LocalDate getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 

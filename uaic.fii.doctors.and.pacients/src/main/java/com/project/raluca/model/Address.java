@@ -27,8 +27,8 @@ public class Address extends AbstractEntity implements Serializable {
     private City city;
     private String street;
     private String number;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
     @OneToMany(mappedBy = "address",cascade = CascadeType.ALL,fetch= FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -93,19 +93,19 @@ public class Address extends AbstractEntity implements Serializable {
         this.pacient = pacient;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

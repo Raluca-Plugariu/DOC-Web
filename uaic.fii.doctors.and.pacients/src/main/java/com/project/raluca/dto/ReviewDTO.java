@@ -6,9 +6,9 @@ public class ReviewDTO {
     private UserDoctorDTO doctor;
     private UserPacientDTO pacient;
     private String content;
-    private double starsNumber;
+    private int starsNumber;
 
-    public ReviewDTO(int id, UserDoctorDTO doctor, UserPacientDTO pacient, String content, double starsNumber) {
+    public ReviewDTO(int id, UserDoctorDTO doctor, UserPacientDTO pacient, String content, int starsNumber) {
         this.id = id;
         this.doctor = doctor;
         this.pacient = pacient;
@@ -49,11 +49,11 @@ public class ReviewDTO {
         this.content = content;
     }
 
-    public double getStarsNumber() {
+    public int getStarsNumber() {
         return starsNumber;
     }
 
-    public void setStarsNumber(double starsNumber) {
+    public void setStarsNumber(int starsNumber) {
         this.starsNumber = starsNumber;
     }
 }

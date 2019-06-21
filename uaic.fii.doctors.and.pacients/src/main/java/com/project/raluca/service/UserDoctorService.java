@@ -1,11 +1,14 @@
 package com.project.raluca.service;
 import com.project.raluca.dao.UserDoctorDAO;
 import com.project.raluca.dto.AppointmentDTO;
+import com.project.raluca.dto.BookableTimeDTO;
 import com.project.raluca.dto.NotificationDTO;
 import com.project.raluca.dto.ReviewDTO;
+import com.project.raluca.dto.SearchFilter;
 import com.project.raluca.dto.UserPacientDTO;
 import com.project.raluca.model.Address;
 import com.project.raluca.model.Authorities;
+import com.project.raluca.model.BookableTime;
 import com.project.raluca.model.Institution;
 import com.project.raluca.model.Notification;
 import com.project.raluca.model.Pacient;
@@ -14,16 +17,27 @@ import com.project.raluca.model.Users;
 import com.project.raluca.model.enums.AppointmentStatus;
 import com.project.raluca.model.enums.City;
 import com.project.raluca.model.enums.Gender;
+import com.project.raluca.model.enums.InsuranceHouse;
 import com.project.raluca.model.enums.NotificationType;
 import com.project.raluca.model.enums.Range;
 import com.project.raluca.model.enums.Speciality;
 import com.project.raluca.repository.AuthoritiesRepository;
+import com.project.raluca.repository.BookableTimeRepository;
 import com.project.raluca.repository.ReviewRepository;
 import com.project.raluca.repository.UserDoctorRepository;
 import com.project.raluca.repository.UserPacientRepository;
 import com.project.raluca.repository.UserRepository;
 import com.project.raluca.utils.GeneralUtils;
 import com.project.raluca.utils.GenericMapper;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -62,6 +76,10 @@ public class UserDoctorService {
     private UserPacientRepository userPacientRepository;
 
     @Autowired
+    private BookableTimeRepository bookableTimeRepository;
+
+
+    @Autowired
     public UserDoctorService(final UserDoctorRepository userDoctorRepository, final UserDoctorDAO userDoctorDAO
             , AppointmentService appointmentService, UserPacientService userPacientService, UserRepository userRepository) {
         this.userDoctorRepository = userDoctorRepository;
@@ -72,7 +90,7 @@ public class UserDoctorService {
     }
 
     @PostConstruct
-    public void bootstrap() {
+    public void bootstrap() throws ParseException {
         ///create doctor with user
 //
         Users user = new Users();
@@ -81,13 +99,16 @@ public class UserDoctorService {
         user.setEnabled(true);
 
         Institution institution = new Institution();
-        institution.setLocation(new Address("RO", City.Iasi, "str", "2"));
+        Address address = new Address("RO", City.Iasi, "str", "2");
+        address.setLatitude(46.7712);
+        address.setLongitude(23.6236);
+        institution.setLocation(address);
         institution.setName("arcadiatest");
 
         Review review = new Review();
         review.setStarsNumber(2);
         review.setContent("!!!!!??");
-
+//        reviewRepository.save(review);
         Review review2 = new Review();
         review2.setContent("??????");
         review2.setStarsNumber(5);
@@ -102,16 +123,46 @@ public class UserDoctorService {
         userDoctor.setGender(Gender.FEMALE);
         userDoctor.setUser(user);
         userDoctor.setRange(Range.PROFESOR);
-        userDoctor.setSpecialityList(Arrays.asList(Speciality.NEUROLOG, Speciality.STOMATOLOG));
+        userDoctor.setSpeciality(Speciality.NEUROLOG);
         userDoctor.setInstitution(institution);
-        // userDoctorDTO.setReviewList(reviewList);
+        userDoctor.setPhone("0751897931");
+        userDoctor.setInsuranceHouse(InsuranceHouse.IS);
+
+
+
+        String oldstring = "2019-06-17 12:00:00.0";
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
+
+        String newSring = "2019-06-17 13:00:00.0";
+        Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(newSring);
+
+        BookableTime bookableTimeDTO = new BookableTime();
+        bookableTimeDTO.setStartTime(date);
+
+
+        BookableTime bookableTime = new BookableTime();
+        bookableTime.setStartTime(date2);
+        bookableTime.setDoctor(userDoctor);
+
         Pacient pacient = GeneralUtils.bootstrapDummyPacient("Ion","Dumbrava");
         userDoctor.setPacientsList(Arrays.asList(pacient));
+
+        bookableTimeDTO.setDoctor(userDoctor);
+        review.setDoctor(userDoctor);
+        review.setPacient(pacient);
+        review2.setPacient(pacient);
+        review2.setDoctor(userDoctor);
+        userDoctor.setReviewList(Arrays.asList(review,review2));
+        userDoctor.setBookableTimes(Arrays.asList(bookableTimeDTO,bookableTime));
         Doctor saved = userDoctorRepository.findByUserUsername(userDoctor.getUser().getUsername());
+
+      //  Doctor moked = userDoctorRepository.save(GeneralUtils.mockDoctor());
 
         if (saved == null) {
             userDoctorRepository.save(userDoctor);
         }
+
+
         Authorities authorities = new Authorities();
         authorities.setAuthority("ROLE_DOCTOR");
         authorities.setUsername("raluca.plugariu");
@@ -123,8 +174,8 @@ public class UserDoctorService {
         }
 
         Authorities authority = new Authorities();
-        authorities.setAuthority("ROLE_PACIENT");
-        authorities.setUsername(pacient.getFirstName());
+        authority.setAuthority("ROLE_PACIENT");
+        authority.setUsername(pacient.getFirstName());
 
         Authorities savedAuthority = authoritiesRepository.findByUsername(authority.getUsername());
 
@@ -226,4 +277,68 @@ public class UserDoctorService {
         }
         return starRate / userDoctorDTO.getReviewList().size();
     }
+
+    public List<UserDoctorDTO> searchForDoctors(SearchFilter searchFilter){
+        List<UserDoctorDTO> doctorDTOS = new ArrayList<>();
+        Connection conn = null;
+
+        String url = "jdbc:h2:file:~/test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE";
+        Statement stmt = null;
+        ResultSet result = null;
+        String driver = "org.h2.Driver";
+        String databaseUserName = "sa";
+        String databasePassword = "admin";
+        PreparedStatement pst = null;
+
+        try{
+            conn = DriverManager.getConnection(url, databaseUserName, databasePassword);
+            stmt = conn.createStatement();
+            System.out.println("Connected to the database.");
+        }catch(Exception e){
+            System.out.println("Failed to connect ot the database.");
+        }
+
+        try{
+            String query = createQuery(searchFilter);
+            pst = conn.prepareStatement(query);
+            result = pst.executeQuery();
+            while (result.next()){
+                UserDoctorDTO doctorDTO = get(result.getInt("id"));
+                doctorDTO.setId(result.getInt("id"));
+                doctorDTOS.add(doctorDTO);
+            }
+
+        }
+        catch(Exception e){
+
+        }
+
+
+
+
+        return doctorDTOS;
+
+    }
+
+    private String createQuery(SearchFilter searchFilter) {
+        String query = "SELECT * FROM DOCTOR ";
+        if(!searchFilter.getName().isEmpty()) {
+            String firstName = searchFilter.getName().substring(0,searchFilter.getName().indexOf(" "));
+            String lastName = searchFilter.getName().substring(searchFilter.getName().indexOf(" ")+1);
+
+            query = query.concat("WHERE doctor.first_name = '"+ firstName +"' and doctor.last_name = '" + lastName +"' ");
+        }
+        if(!searchFilter.getSpeciality().isEmpty()){
+            if(query.length()>21)
+               query = query.concat("and");
+            else
+               query = query.concat("where");
+            query = query.concat(" doctor.speciality = "+searchFilter.getSpeciality()+" ");
+        }
+        if(searchFilter.isScoreRate()){
+            query = query.concat("order by doctor.star_rate DESC");
+        }
+        return query;
+    }
+
 }

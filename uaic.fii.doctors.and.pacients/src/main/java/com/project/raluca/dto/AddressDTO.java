@@ -1,15 +1,17 @@
 package com.project.raluca.dto;
 
+import com.project.raluca.model.enums.City;
+
 public class AddressDTO {
     private int id;
     private String country;
-    private String city;
+    private City city;
     private String street;
     private String number;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
-    public AddressDTO(int id, String country, String city, String street, String number, String latitude, String longitude) {
+    public AddressDTO(int id, String country, City city, String street, String number, double latitude, double longitude) {
         this.id = id;
         this.country = country;
         this.city = city;
@@ -36,11 +38,11 @@ public class AddressDTO {
         this.country = country;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -58,5 +60,28 @@ public class AddressDTO {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return  city.name()  +
+                ", Street: " + street +
+                ", Number: " + number ;
     }
 }

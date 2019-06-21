@@ -1,125 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>a5233597-bd68-4f6a-b4fd-f539025e2d96.SCHEMA:TEST.PUBLIC</OriginalElement>
-  <nodes>
-    <node x="509.0" y="955.5">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.APPOINTMENT</node>
-    <node x="814.0" y="1010.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR_PACIENT</node>
-    <node x="1033.0" y="982.5">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.BOOKABLE_TIME</node>
-    <node x="524.0625" y="0.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.ADDRESS</node>
-    <node x="831.25" y="303.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.INSTITUTION</node>
-    <node x="245.875" y="276.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT_DETAILS</node>
-    <node x="251.0" y="942.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.NOTIFICATION</node>
-    <node x="1280.0" y="1010.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR_SPECIALITY</node>
-    <node x="312.875" y="552.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT</node>
-    <node x="0.0" y="969.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.REVIEW</node>
-    <node x="530.8125" y="289.5">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.USERS</node>
-    <node x="0.0" y="1213.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.AUTHORITIES</node>
-    <node x="715.5" y="498.0">a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR</node>
-  </nodes>
+  <OriginalElement />
+  <nodes />
   <notes />
-  <edges>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.REVIEW" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR">
-      <point x="57.75" y="-86.0" />
-      <point x="173.25" y="902.0" />
-      <point x="736.75" y="902.0" />
-      <point x="-106.25" y="167.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR_PACIENT" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT">
-      <point x="-49.75" y="-45.0" />
-      <point x="863.75" y="882.0" />
-      <point x="544.75" y="882.0" />
-      <point x="99.375" y="113.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR_SPECIALITY" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR">
-      <point x="0.0" y="-45.0" />
-      <point x="1413.0" y="852.0" />
-      <point x="949.25" y="852.0" />
-      <point x="106.25" y="167.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.REVIEW" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT">
-      <point x="-57.75" y="-86.0" />
-      <point x="57.75" y="882.0" />
-      <point x="346.0" y="882.0" />
-      <point x="-99.375" y="113.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.USERS">
-      <point x="66.25" y="-113.0" />
-      <point x="511.625" y="473.0" />
-      <point x="588.8125" y="473.0" />
-      <point x="-58.0" y="72.5" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.INSTITUTION">
-      <point x="63.75" y="-167.0" />
-      <point x="906.75" y="473.0" />
-      <point x="932.75" y="473.0" />
-      <point x="0.0" y="59.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.APPOINTMENT" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR">
-      <point x="71.25" y="-99.5" />
-      <point x="722.75" y="922.0" />
-      <point x="821.75" y="922.0" />
-      <point x="-21.25" y="167.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR_PACIENT" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR">
-      <point x="49.75" y="-45.0" />
-      <point x="963.25" y="872.0" />
-      <point x="864.25" y="872.0" />
-      <point x="21.25" y="167.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.NOTIFICATION" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR">
-      <point x="59.5" y="-113.0" />
-      <point x="429.5" y="912.0" />
-      <point x="779.25" y="912.0" />
-      <point x="-63.75" y="167.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT_DETAILS" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.ADDRESS">
-      <point x="0.0" y="-86.0" />
-      <point x="352.875" y="251.0" />
-      <point x="582.8125" y="251.0" />
-      <point x="-58.75" y="113.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.APPOINTMENT" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT">
-      <point x="-71.25" y="-99.5" />
-      <point x="580.25" y="892.0" />
-      <point x="478.5" y="892.0" />
-      <point x="33.125" y="113.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.BOOKABLE_TIME" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR">
-      <point x="0.0" y="-72.5" />
-      <point x="1146.5" y="862.0" />
-      <point x="906.75" y="862.0" />
-      <point x="63.75" y="167.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.INSTITUTION" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.ADDRESS">
-      <point x="0.0" y="-59.0" />
-      <point x="932.75" y="251.0" />
-      <point x="700.3125" y="251.0" />
-      <point x="58.75" y="113.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT_DETAILS">
-      <point x="-66.25" y="-113.0" />
-      <point x="379.125" y="473.0" />
-      <point x="352.875" y="473.0" />
-      <point x="0.0" y="86.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.NOTIFICATION" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.PACIENT">
-      <point x="-59.5" y="-113.0" />
-      <point x="310.5" y="892.0" />
-      <point x="412.25" y="892.0" />
-      <point x="-33.125" y="113.0" />
-    </edge>
-    <edge source="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.DOCTOR" target="a5233597-bd68-4f6a-b4fd-f539025e2d96.TABLE:TEST.PUBLIC.USERS">
-      <point x="-63.75" y="-167.0" />
-      <point x="779.25" y="473.0" />
-      <point x="704.8125" y="473.0" />
-      <point x="58.0" y="72.5" />
-    </edge>
-  </edges>
-  <settings layout="Hierarchic Group" zoom="1.0641746854182086" x="773.0000000000002" y="221.1650552966544" />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0641746854182086" x="745.7488349447035" y="765.5209709953399" />
   <SelectedNodes />
   <Categories>
-    <Category>Key columns</Category>
     <Category>Columns</Category>
   </Categories>
 </Diagram>

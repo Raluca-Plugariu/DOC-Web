@@ -1,5 +1,7 @@
 package com.project.raluca.dto;
+import com.project.raluca.utils.GeneralUtils;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -8,11 +10,11 @@ import org.omg.CORBA.DATA_CONVERSION;
 
 public class BookableTimeDTO {
     private int id;
-    private LocalDate startTime;
-    private LocalDate endTime;
+    private Date startTime;
+    private Date endTime;
     private UserDoctorDTO userDoctorDTO;
 
-    public BookableTimeDTO(int id,LocalDate startTime, LocalDate endTime) {
+    public BookableTimeDTO(int id,Date startTime, Date endTime) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -20,19 +22,19 @@ public class BookableTimeDTO {
     }
     public BookableTimeDTO(){}
 
-    public LocalDate getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -51,6 +53,7 @@ public class BookableTimeDTO {
     public void setUserDoctorDTO(UserDoctorDTO userDoctorDTO) {
         this.userDoctorDTO = userDoctorDTO;
     }
+
 
     @Override
     public boolean equals(Object o) {

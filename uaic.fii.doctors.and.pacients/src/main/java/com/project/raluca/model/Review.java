@@ -23,7 +23,7 @@ public class Review extends AbstractEntity implements Serializable{
 
     private String content;
 
-    private double starsNumber;
+    private int starsNumber;
 
     public String getContent() {
         return content;
@@ -33,11 +33,11 @@ public class Review extends AbstractEntity implements Serializable{
         this.content = content;
     }
 
-    public double getStarsNumber() {
+    public int getStarsNumber() {
         return starsNumber;
     }
 
-    public void setStarsNumber(double starsNumber) {
+    public void setStarsNumber(int starsNumber) {
         this.starsNumber = starsNumber;
     }
 
